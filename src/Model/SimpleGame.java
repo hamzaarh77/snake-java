@@ -18,9 +18,7 @@ public class SimpleGame extends Game{
     @Override
     public void takeTurn() {
         ++turn;
-
         this.notifier();
-
         System.out.println("Tour: "+turn);
     }
 
@@ -28,6 +26,12 @@ public class SimpleGame extends Game{
     public boolean gameContinue() {
         return !gameOver();
     }
+
+    @Override
+    public void restartGame() {
+        initializeGame();
+    }
+    
 
 
 

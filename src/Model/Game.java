@@ -2,13 +2,14 @@ package Model;
 import java.lang.Runnable;
 import java.util.ArrayList;
 
+import Vue.PanelSnakeGame;
 import patternObservateur.*;
 
 
 abstract public class Game implements Runnable, Sujet {
 
-    static int turn ;
-    int maxturn ;
+    public static int turn ;
+    public int maxturn ;
     boolean isRunning ;
     Thread thread;
     long time ; // speed
@@ -28,6 +29,7 @@ abstract public class Game implements Runnable, Sujet {
     abstract public void initializeGame();
     abstract public void takeTurn();
     abstract public boolean gameContinue();
+    abstract public void restartGame();
 
 
 
@@ -65,14 +67,13 @@ abstract public class Game implements Runnable, Sujet {
     // on sait que le jeu n'est pas terminé avec 2 condition: la methode gameContinue et le nombre de tour qui reste
     public void step(){
         if(gameContinue()){
-            if(turn < this.maxturn)
+            if(turn < maxturn ){
                 takeTurn();
-            else {
+            }else {
                 isRunning = false ;
                 gameOver();
-            }
+            }}
         }
-    }
 
 
 
@@ -141,6 +142,10 @@ abstract public class Game implements Runnable, Sujet {
         this.time = t ;
     }
 
+    /////////////////////////prblemes:
+     public PanelSnakeGame getpanel(){
+        return null;
+     }
 
 }
 
