@@ -47,7 +47,6 @@ public class ControllerSnakeGame extends abstractController{
 
         // Création d'une instance de PanelSnakeGame
         PanelSnakeGame panel = new PanelSnakeGame(map.getSizeX(), map.getSizeY(), map.get_walls(), map.getStart_snakes(), map.getStart_items());
-        
 
         ViewSnakeGame vsg = new ViewSnakeGame(panel);
 
