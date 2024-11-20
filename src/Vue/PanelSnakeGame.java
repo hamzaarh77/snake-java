@@ -53,13 +53,11 @@ public class PanelSnakeGame extends JPanel{
 	int cpt;
 
 	public PanelSnakeGame(int sizeX, int sizeY, boolean[][] walls, ArrayList<FeaturesSnake> featuresSnakes, ArrayList<FeaturesItem> featuresItems) {
-
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.walls = walls;	
 		this.featuresSnakes = featuresSnakes;
 		this.featuresItems = featuresItems;
-				
 	}
 
 	public void paint(Graphics g){

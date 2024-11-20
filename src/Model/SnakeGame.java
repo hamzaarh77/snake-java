@@ -3,6 +3,7 @@ import patternStrategy.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import Vue.PanelSnakeGame;
 import utils.*;
 
@@ -53,6 +54,7 @@ public class SnakeGame extends Game{
 
     @Override
     public void takeTurn() {
+        
         // effectue une action pour chaque agent
         for(Snake element : this.snakes){
             this.strategy.move(element);
@@ -60,8 +62,20 @@ public class SnakeGame extends Game{
         ++turn;
         System.out.println("tour: "+ turn);
         this.notifier();
+
+
         // on doit mettre le panel a jour a chaque tour mais ici on a pas acces au pannel
-        //this.panel.updateInfoGame(null, null);
+        ArrayList<FeaturesSnake> listeSnakesFeatures = new ArrayList<>();
+        ArrayList<FeaturesItem> listeItemsFeatures = new ArrayList<>();
+        for(Snake snake : this.snakes){
+            listeSnakesFeatures.add(snake.getFeaturesSnake());
+        }
+        for(Item item : this.items){
+            listeItemsFeatures.add(item.getFeaturesItem());
+        }
+        this.panel.updateInfoGame(listeSnakesFeatures,listeItemsFeatures);
+        this.panel.repaint();
+        
     }
 
     @Override

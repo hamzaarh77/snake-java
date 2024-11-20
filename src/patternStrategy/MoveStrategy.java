@@ -24,6 +24,9 @@ public abstract class MoveStrategy {
         int height = this.map.getSizeY();
 
         // Vérifier si les nouvelles coordonnées sont dans les limites du plateau
+        if(!this.map.get_walls()[0][0]){
+            return x > 0 && x < width && y > 0 && y < height;
+        }
         return x > 0 && x < width-1 && y > 0 && y < height-1;
     }
 
