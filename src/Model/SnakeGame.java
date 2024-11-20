@@ -49,6 +49,8 @@ public class SnakeGame extends Game{
         String filename = this.map.getFilename();
         this.map = new InputMap(filename);
         initializeGame();
+        // il faut aussi remettre a jour le panel
+        rePaint();
     }
 
 
@@ -62,8 +64,22 @@ public class SnakeGame extends Game{
         ++turn;
         System.out.println("tour: "+ turn);
         this.notifier();
+        // mettre a jour le panneau
+        rePaint();
+        
+    }
 
+    @Override
+    public boolean gameContinue() {
+        return !gameOver();
+    }
 
+    public PanelSnakeGame getpanel(){
+        return this.panel;
+    }
+
+    // private methods
+    private void rePaint(){
         // on doit mettre le panel a jour a chaque tour mais ici on a pas acces au pannel
         ArrayList<FeaturesSnake> listeSnakesFeatures = new ArrayList<>();
         ArrayList<FeaturesItem> listeItemsFeatures = new ArrayList<>();
@@ -75,16 +91,6 @@ public class SnakeGame extends Game{
         }
         this.panel.updateInfoGame(listeSnakesFeatures,listeItemsFeatures);
         this.panel.repaint();
-        
-    }
-
-    @Override
-    public boolean gameContinue() {
-        return !gameOver();
-    }
-
-    public PanelSnakeGame getpanel(){
-        return this.panel;
     }
 
     

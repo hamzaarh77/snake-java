@@ -1,6 +1,5 @@
 package Controller;
 import Model.*;
-import Vue.PanelSnakeGame;
 import Vue.ViewCommand;
 import Vue.ViewSnakeGame;
 
@@ -21,8 +20,4 @@ public class ControllerSnakeGame extends abstractController{
     public void restart(){
         this.game.restartGame();
     }
-
-    // a chaque fois que le tour du jeu change on maj le pannel
-    // mais ici on a pas acces aux position de serpents
-
 }
