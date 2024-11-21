@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 import Vue.PanelSnakeGame;
 import patternObservateur.*;
+import utils.FeaturesItem;
+import utils.FeaturesSnake;
 
 
 abstract public class Game implements Runnable, Sujet {
 
     public static int turn ;
     public int maxturn ;
-    boolean isRunning ;
+    public boolean isRunning ;
     Thread thread;
     long time ; // speed
     ArrayList<Observateur> observateurs;
@@ -30,6 +32,10 @@ abstract public class Game implements Runnable, Sujet {
     abstract public void takeTurn();
     abstract public boolean gameContinue();
     abstract public void restartGame();
+    abstract public ArrayList<FeaturesItem> getFeaturesItems();
+    abstract public ArrayList<FeaturesSnake> getFeaturesSnakes();
+
+
 
 
 
@@ -143,9 +149,7 @@ abstract public class Game implements Runnable, Sujet {
     }
 
     /////////////////////////prblemes:
-     public PanelSnakeGame getpanel(){
-        return null;
-     }
+
 
 }
 

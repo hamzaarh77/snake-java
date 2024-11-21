@@ -53,7 +53,7 @@ abstract public class abstractController {
         command.boutton_step.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 if(game.gameContinue())
-                    game.takeTurn();
+                    takeTurn();
                 else
                     game.gameOver();
                 command.set_etat(new EtatEnCours(command));
@@ -76,7 +76,11 @@ abstract public class abstractController {
 
     // play est une fonction asynchrone donc il faut l'appeler dans un thread
     public void play(){
-        game.run();
+        run();
+    }
+
+    public void run(){
+        this.game.run();
     }
 
     // reinitialiser le jeu
@@ -95,6 +99,10 @@ abstract public class abstractController {
     // reglage de la vitesse du jeu
     public void setSpeed(long l){
         this.game.set_speed(l);
+    }
+
+    public void takeTurn(){
+        this.game.takeTurn();
     }
 
 

@@ -11,17 +11,25 @@ public class SnakeGame extends Game{
 
     public List<Snake> snakes ;
     public List<Item> items ;
-    public InputMap map ;
     public MoveStrategy strategy ;
-    public PanelSnakeGame panel;
+    public InputMap map ;
+    public String strat;
 
 
-    public SnakeGame(int maxturn, InputMap map) {
+
+    public SnakeGame(int maxturn, InputMap map, String strat) {
         super(maxturn);
         this.map = map;
-        this.panel = new PanelSnakeGame(map.getSizeX(), map.getSizeY(), map.get_walls(), map.getStart_snakes(), map.getStart_items());
+        this.strat=strat;
+        switch(strat){
+            case "random":
+                this.strategy = new RandomMoveStrategy(map);
+            break;
 
-        strategy = new RandomMoveStrategy(map);
+            default:
+                this.strategy = new RandomMoveStrategy(map);
+            break;
+        }
     }
 
     @Override
@@ -41,16 +49,14 @@ public class SnakeGame extends Game{
         for(FeaturesItem item : this.map.getStart_items()){
             this.items.add(new Item(item));
         }
+        
         this.notifier();
     }
 
     public void restartGame(){
-        // reinitialisation de la map puis du jeu
         String filename = this.map.getFilename();
         this.map = new InputMap(filename);
         initializeGame();
-        // il faut aussi remettre a jour le panel
-        rePaint();
     }
 
 
@@ -64,8 +70,7 @@ public class SnakeGame extends Game{
         ++turn;
         System.out.println("tour: "+ turn);
         this.notifier();
-        // mettre a jour le panneau
-        rePaint();
+        
         
     }
 
@@ -73,25 +78,28 @@ public class SnakeGame extends Game{
     public boolean gameContinue() {
         return !gameOver();
     }
+    
 
-    public PanelSnakeGame getpanel(){
-        return this.panel;
+    public ArrayList<FeaturesItem> getFeaturesItems(){
+        ArrayList<FeaturesItem> listeFeaturesItem = new ArrayList<>();
+        for(Item item : items){
+            listeFeaturesItem.add(item.getFeaturesItem());
+        }
+        return listeFeaturesItem;
     }
 
-    // private methods
-    private void rePaint(){
-        // on doit mettre le panel a jour a chaque tour mais ici on a pas acces au pannel
-        ArrayList<FeaturesSnake> listeSnakesFeatures = new ArrayList<>();
-        ArrayList<FeaturesItem> listeItemsFeatures = new ArrayList<>();
-        for(Snake snake : this.snakes){
-            listeSnakesFeatures.add(snake.getFeaturesSnake());
+    @Override
+    public ArrayList<FeaturesSnake> getFeaturesSnakes() {
+        ArrayList<FeaturesSnake> listeFeaturesSnake = new ArrayList<>();
+        for(Snake snake : snakes){
+            listeFeaturesSnake.add(snake.getFeaturesSnake());
         }
-        for(Item item : this.items){
-            listeItemsFeatures.add(item.getFeaturesItem());
-        }
-        this.panel.updateInfoGame(listeSnakesFeatures,listeItemsFeatures);
-        this.panel.repaint();
+        return listeFeaturesSnake;
     }
+
+
+    
+    
 
     
 

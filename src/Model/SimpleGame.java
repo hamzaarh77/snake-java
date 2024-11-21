@@ -1,5 +1,10 @@
 package Model;
 
+import java.util.ArrayList;
+
+import utils.FeaturesItem;
+import utils.FeaturesSnake;
+
 public class SimpleGame extends Game{
 
 
@@ -30,6 +35,16 @@ public class SimpleGame extends Game{
     @Override
     public void restartGame() {
         initializeGame();
+    }
+
+    @Override
+    public ArrayList<FeaturesItem> getFeaturesItems() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<FeaturesSnake> getFeaturesSnakes() {
+        return null;
     }
     
 
