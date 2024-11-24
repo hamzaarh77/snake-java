@@ -37,7 +37,7 @@ abstract public class Game implements Runnable, Sujet {
 
 
 
-
+    // le jeu se termine quand le nb de tour max se termine
     public boolean gameOver() {
         if(turn >= maxturn)
             {

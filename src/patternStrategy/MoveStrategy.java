@@ -30,6 +30,6 @@ public abstract class MoveStrategy {
         return x > 0 && x < width-1 && y > 0 && y < height-1;
     }
 
-    public abstract void move(Snake snake);
+    public abstract boolean move(Snake snake);
     public InputMap getmap(){return this.map; }
 }

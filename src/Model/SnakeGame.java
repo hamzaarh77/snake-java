@@ -62,13 +62,32 @@ public class SnakeGame extends Game{
         
         // effectue une action pour chaque agent
         for(Snake element : this.snakes){
-            this.strategy.move(element);
+            boolean moved =this.strategy.move(element);
+            if(!moved){
+                this.snakes.remove(element);
+                this.gameOver(); // fin du jeu si plus de snake
+            }
         }
         ++turn;
         System.out.println("tour: "+ turn);
         this.notifier();
         
         
+    }
+
+    // le jeu se termine qund le nombre de tour max est écoulé ou il y a plus d'agent
+    public boolean gameOver(){
+        if(turn >= maxturn)
+        {
+            System.exit(0);
+            return true ;
+        }
+        if(snakes.size()==0)
+        {
+            System.exit(0);
+            return true;
+        }
+        return false;
     }
 
     @Override

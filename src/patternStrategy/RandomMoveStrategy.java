@@ -12,7 +12,7 @@ public class RandomMoveStrategy extends MoveStrategy {
     }
 
     @Override
-    public void move(Snake snake) {
+    public boolean move(Snake snake) {
         AgentAction action = AgentAction.values()[random.nextInt(AgentAction.values().length)];
 
         int x = snake.getFeaturesSnake().getPositions().get(0).getX();
@@ -29,6 +29,7 @@ public class RandomMoveStrategy extends MoveStrategy {
         if (this.isLegalMove(snake, action)) {
             snake.setPosition(x, y);
             System.out.println("position apres: "+x+" "+y);
+            return true;
 
         } else {
             //sans mur
@@ -40,13 +41,18 @@ public class RandomMoveStrategy extends MoveStrategy {
                 else if (y >= getmap().getSizeY()) y = 0;
                 snake.setPosition(x, y);
                 System.out.println("sors de l'autre coté");
+                System.out.println("---------------------");
+
+                return true;
             }// avec mur
             else {
-                System.out.println("mur");
+                // on elimine l'agent qui a touché le mur
+
+                System.out.println("rencontré un mur donc meurt");
+
+                return false;
             }
-        
         }
-        System.out.println("-------------------------------");
 
 
     }
