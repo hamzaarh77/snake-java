@@ -7,8 +7,6 @@ import Vue.ViewCommand;
 import Vue.ViewSnakeGame;
 import utils.FeaturesItem;
 import utils.FeaturesSnake;
-import utils.Item;
-import utils.Snake;
 
 
 public class ControllerSnakeGame extends abstractController{
@@ -18,9 +16,7 @@ public class ControllerSnakeGame extends abstractController{
     public PanelSnakeGame panel;
 
 
-    
 
-    
     public ControllerSnakeGame(SnakeGame game ){
         super(game);
         this.panel = new PanelSnakeGame(game.map.getSizeX(),game.map.getSizeY(), game.map.get_walls(), game.map.getStart_snakes(), game.map.getStart_items());

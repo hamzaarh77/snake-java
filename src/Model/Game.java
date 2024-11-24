@@ -1,8 +1,6 @@
 package Model;
 import java.lang.Runnable;
 import java.util.ArrayList;
-
-import Vue.PanelSnakeGame;
 import patternObservateur.*;
 import utils.FeaturesItem;
 import utils.FeaturesSnake;

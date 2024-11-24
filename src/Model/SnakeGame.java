@@ -2,9 +2,6 @@ package Model;
 import patternStrategy.*;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import Vue.PanelSnakeGame;
 import utils.*;
 
 public class SnakeGame extends Game{
