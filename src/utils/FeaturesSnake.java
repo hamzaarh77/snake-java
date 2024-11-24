@@ -31,6 +31,22 @@ public class FeaturesSnake {
 		return positions;
 	}
 
+	public void addQueu(){
+		Position addedPosition;
+		Position lastPosition = positions.get(positions.size()-1);
+		if(lastAction.equals(AgentAction.MOVE_UP)){
+			addedPosition = new Position(lastPosition.getX(), lastPosition.getY()-1);
+		}else if(lastAction.equals(AgentAction.MOVE_DOWN)){
+			addedPosition = new Position(lastPosition.getX(), lastPosition.getY()+1);
+		}else if(lastAction.equals(AgentAction.MOVE_LEFT)){
+			addedPosition = new Position(lastPosition.getX()-1, lastPosition.getY());
+		}else {
+			addedPosition = new Position(lastPosition.getX()+1, lastPosition.getY());
+		}
+		positions.add(addedPosition);
+	}
+
+
 	public void setPositions(ArrayList<Position> positions) {
 		this.positions = positions;
 	}

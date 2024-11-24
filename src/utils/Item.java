@@ -9,5 +9,9 @@ public class Item {
 
     public FeaturesItem getFeaturesItem(){return this.features; }
     public void setFeaturesItem(FeaturesItem f ){this.features = f ;}
+    
+    public Position getPosition(){
+        return new Position(this.getFeaturesItem().getX(), this.getFeaturesItem().getY());
+    }
 
 }

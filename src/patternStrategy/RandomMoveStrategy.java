@@ -2,6 +2,8 @@ package patternStrategy;
 
 import Model.InputMap;
 import utils.*;
+
+import java.util.List;
 import java.util.Random;
 
 public class RandomMoveStrategy extends MoveStrategy {
@@ -12,7 +14,7 @@ public class RandomMoveStrategy extends MoveStrategy {
     }
 
     @Override
-    public boolean move(Snake snake) {
+    public boolean move(Snake snake, List<Item> items) {
         AgentAction action = AgentAction.values()[random.nextInt(AgentAction.values().length)];
 
         int x = snake.getFeaturesSnake().getPositions().get(0).getX();
@@ -24,35 +26,43 @@ public class RandomMoveStrategy extends MoveStrategy {
             case MOVE_LEFT : x--;System.out.println("Gauche"); break;
             case MOVE_RIGHT: x++;System.out.println("Droite"); break;
         }
-
-        // Vérifier si le mouvement est valide et mettre à jour la position
-        if (this.isLegalMove(snake, action)) {
-            snake.setPosition(x, y);
-            System.out.println("position apres: "+x+" "+y);
-            return true;
-
-        } else {
-            //sans mur
-            if(!this.getmap().get_walls()[0][0]){
-                if (x < 0) x = getmap().getSizeX() - 1;
-                else if (x >= getmap().getSizeX()) x = 0;
-            
-                if (y < 0) y = getmap().getSizeY() - 1;
-                else if (y >= getmap().getSizeY()) y = 0;
+        // verification si le mouvement est valide par rapport a last action
+        if(this.isLegalMove_LastAction(snake, action)){
+            // Vérifier si le mouvement est valide et mettre à jour la position
+            if (this.isLegalMove_Wall(snake, action)) {
                 snake.setPosition(x, y);
-                System.out.println("sors de l'autre coté");
+                snake.getFeaturesSnake().setLastAction(action);
+                rules(snake, items);
+                System.out.println("position apres: "+x+" "+y);
                 System.out.println("---------------------");
-
                 return true;
-            }// avec mur
-            else {
-                // on elimine l'agent qui a touché le mur
 
-                System.out.println("rencontré un mur donc meurt");
-
-                return false;
+            } else {
+                //sans mur
+                if(!this.getmap().get_walls()[0][0]){
+                    if (x < 0) x = getmap().getSizeX() - 1;
+                    else if (x >= getmap().getSizeX()) x = 0;
+                
+                    if (y < 0) y = getmap().getSizeY() - 1;
+                    else if (y >= getmap().getSizeY()) y = 0;
+                    snake.setPosition(x, y);
+                    System.out.println("---------------------");
+                    rules(snake, items);
+                    snake.getFeaturesSnake().setLastAction(action);
+                    return true;
+                }// avec mur
+                else {
+                    // on elimine l'agent qui a touché le mur
+                    System.out.println("agent éliminé");
+                    return false;
+                }
             }
+        }else {
+            move(snake, items);
+            return true; // juste pour ne pas supprimer l'element, on repete jusqu'a pas avoir le probleme de lastAction
         }
+
+        
 
 
     }

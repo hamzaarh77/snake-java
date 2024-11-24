@@ -20,4 +20,8 @@ public class Snake {
         this.features.setPositions(liste);
     }
 
+    public Position getheadPosition(){
+		return this.getFeaturesSnake().getPositions().get(0);
+	}
+
 }

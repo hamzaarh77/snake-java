@@ -1,6 +1,7 @@
 package Model;
 import patternStrategy.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import utils.*;
 
@@ -61,11 +62,13 @@ public class SnakeGame extends Game{
     public void takeTurn() {
         
         // effectue une action pour chaque agent
-        for(Snake element : this.snakes){
-            boolean moved =this.strategy.move(element);
+        Iterator<Snake> iterator = this.snakes.iterator();
+        while(iterator.hasNext()){
+            Snake element = iterator.next();
+            boolean moved = this.strategy.move(element, this.items);
             if(!moved){
-                this.snakes.remove(element);
-                this.gameOver(); // fin du jeu si plus de snake
+                iterator.remove();
+                this.gameOver();
             }
         }
         ++turn;
@@ -113,7 +116,7 @@ public class SnakeGame extends Game{
         return listeFeaturesSnake;
     }
 
-
+    // regles du jeu
     
     
 
