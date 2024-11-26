@@ -15,6 +15,10 @@ public abstract class MoveStrategy {
     public MoveStrategy(InputMap map) {this.map = map ;}
 
     public boolean isLegalMove_LastAction(Snake snake, AgentAction action){
+        // si le snake n'a pas de corps cela ne s'applique pas
+        if(snake.getFeaturesSnake().getPositions().size()==1)
+            return true;
+        // si le snake a un corps cela s'applique
         switch (action) {
             case MOVE_UP: 
                 if(snake.getFeaturesSnake().getLastAction() != AgentAction.MOVE_DOWN)

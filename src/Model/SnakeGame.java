@@ -115,11 +115,4 @@ public class SnakeGame extends Game{
         }
         return listeFeaturesSnake;
     }
-
-    // regles du jeu
-    
-    
-
-    
-
 }
