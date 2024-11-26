@@ -84,19 +84,24 @@ public abstract class MoveStrategy {
             Item item = iterator.next();
             if(item.getPosition().equals(snake.getheadPosition())){
                 ItemType type = item.getFeaturesItem().getItemType();
-                if(type == ItemType.APPLE){
-                    snake.getFeaturesSnake().addQueu();
-                    iterator.remove();
-                    // faire apparaitre un objet au hasrd dans al map
-                    ItemType randomItemType = liste.get(random.nextInt(liste.size()));
-                    FeaturesItem randomFeaturesItem = new FeaturesItem(random.nextInt(this.map.getSizeX()), random.nextInt(this.map.getSizeY()), randomItemType);
-                    Item randomItem = new Item(randomFeaturesItem);
-                    toAdd.add(randomItem);
-                    System.out.println("pomme***********************");
-                    
-                }else {
+                switch(type){
+                    case APPLE:
+                        snake.getFeaturesSnake().addQueu();
+                        iterator.remove();
+                        // faire apparaitre un objet au hasrd dans al map
+                        ItemType randomItemType = liste.get(random.nextInt(liste.size()));
+                        FeaturesItem randomFeaturesItem = new FeaturesItem(random.nextInt(this.map.getSizeX()), random.nextInt(this.map.getSizeY()), randomItemType);
+                        Item randomItem = new Item(randomFeaturesItem);
+                        toAdd.add(randomItem);
+                        System.out.println("pomme***********************");
+                    break;
+
+                    default:
                     System.out.println("autre");
+                    break;
+
                 }
+                
             }
         }
         items.addAll(toAdd);
