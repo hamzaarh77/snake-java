@@ -32,7 +32,6 @@ public class RandomMoveStrategy extends MoveStrategy {
             if (this.isLegalMove_Wall(snake, action)) {
                 snake.setPosition(x, y);
                 snake.getFeaturesSnake().setLastAction(action);
-                rules(snake, items);
                 System.out.println("position apres: "+x+" "+y);
                 System.out.println("---------------------");
                 return true;
@@ -47,7 +46,6 @@ public class RandomMoveStrategy extends MoveStrategy {
                     else if (y >= getmap().getSizeY()) y = 0;
                     snake.setPosition(x, y);
                     System.out.println("---------------------");
-                    rules(snake, items);
                     snake.getFeaturesSnake().setLastAction(action);
                     return true;
                 }// avec mur
