@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+
 
 import utils.*;
 
@@ -89,7 +91,7 @@ public class SnakeGame extends Game{
                 item_rules(element);
             }
         }
-        //snakeElimination();// a chaque tour on teste si un snake elimine un autre
+        snakeElimination();// a chaque tour on teste si un snake elimine un autre
         ++turn;
         System.out.println("tour: "+ turn);
         this.notifier();
@@ -99,15 +101,26 @@ public class SnakeGame extends Game{
 
     // le jeu se termine qund le nombre de tour max est écoulé ou il y a plus d'agent
     public boolean gameOver(){
-        if(turn >= maxturn)
+        if(turn >= maxturn || snakes.size()==0)
         {
-            System.exit(0);
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Game Over\n entrer 1 pour finir le jeu \n entrer 2 pour refaire une partie");
+            int choix = scanner.nextInt();
+            switch(choix){
+                case 1 :
+                    System.exit(0);
+                break;
+                
+                case 2:
+                    restartGame();
+                break;
+
+                default:
+                    System.out.println("choix non reconnue! encore une partie alors");
+                break;
+            }
+            //scanner.close();
             return true ;
-        }
-        if(snakes.size()==0)
-        {
-            System.exit(0);
-            return true;
         }
         return false;
     }
@@ -200,27 +213,44 @@ public class SnakeGame extends Game{
     }
 
 
-    public void snakeElimination(){
+    public void snakeElimination() {
         Iterator<Snake> currentIterator = this.snakes.iterator();
-        while(currentIterator.hasNext()){
+        List<Snake> toRemove = new ArrayList<>(); // Liste pour stocker les serpents à supprimer
+    
+        while (currentIterator.hasNext()) {
             Snake currentSnake = currentIterator.next();
-
-            Iterator<Snake> iterator = this.snakes.iterator();
-            while(iterator.hasNext()){
-                Snake snake = iterator.next();
-
-                // si la téte de deux snake de la méme taille se retrouve dans la méme position, tout les deux éliminé
-                if(snake.getheadPosition().equals(currentSnake.getheadPosition()) && snake.getFeaturesSnake().getPositions().size()==currentSnake.getFeaturesSnake().getPositions().size()){
-                    iterator.remove();
-                    currentIterator.remove();
+            
+            // Condition 1: si la tête d'un agent se retrouve sur son corps, il est directement éliminé
+            if (currentSnake.getSnakeBody().contains(currentSnake.getheadPosition())) {
+                toRemove.add(currentSnake);
+                System.out.println("snake c'est mangé lui méme========");
+                continue;
+            }
+            
+            for (Snake snake : this.snakes) {
+                if (snake == currentSnake) {
+                    continue; // Éviter de comparer un serpent avec lui-même
                 }
-
-                // si la tete d'un snake courant est dans la position d'un autre snake et le courant est plus grand on l'elimine
-                if(snake.getFeaturesSnake().getPositions().contains(currentSnake.getheadPosition()) && currentSnake.getFeaturesSnake().getPositions().size()>=snake.getFeaturesSnake().getPositions().size()){
-                    iterator.remove();
+    
+                // Condition 2: Les têtes de deux serpents de même taille se retrouvent dans la même position
+                if (snake.getheadPosition().equals(currentSnake.getheadPosition()) &&
+                    snake.getFeaturesSnake().getPositions().size() == currentSnake.getFeaturesSnake().getPositions().size()) {
+                    toRemove.add(currentSnake);
+                    toRemove.add(snake);
+                    break; // Une fois les serpents éliminés, sortez de la boucle
+                }
+    
+                // Condition 3: La tête d'un serpent est dans le corps d'un autre serpent, et le courant est plus grand
+                if (snake.getFeaturesSnake().getPositions().contains(currentSnake.getheadPosition()) &&
+                    currentSnake.getFeaturesSnake().getPositions().size() >= snake.getFeaturesSnake().getPositions().size()) {
+                    toRemove.add(snake);
                 }
             }
         }
+    
+        // Suppression des serpents marqués
+        for (Snake snake : toRemove) {
+            this.snakes.remove(snake);
+        }
     }
-
 }
