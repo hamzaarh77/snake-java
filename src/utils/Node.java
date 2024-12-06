@@ -32,7 +32,7 @@ public class Node   {
     }
 
     public int get_realCost(){
-        return this.realCost;
+        return realCost;
     }
 
     public float get_hCoast(){

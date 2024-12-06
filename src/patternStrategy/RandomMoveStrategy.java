@@ -2,8 +2,6 @@ package patternStrategy;
 
 import Model.InputMap;
 import utils.*;
-
-import java.util.List;
 import java.util.Random;
 
 public class RandomMoveStrategy extends MoveStrategy {

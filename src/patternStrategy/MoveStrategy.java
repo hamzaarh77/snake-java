@@ -1,6 +1,4 @@
 package patternStrategy;
-
-import java.util.List;
 import Model.*;
 import utils.*;
 
