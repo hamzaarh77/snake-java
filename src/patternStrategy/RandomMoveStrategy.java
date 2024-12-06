@@ -14,7 +14,7 @@ public class RandomMoveStrategy extends MoveStrategy {
     }
 
     @Override
-    public boolean move(Snake snake, List<Item> items) {
+    public boolean move(Snake snake) {
         AgentAction action = AgentAction.values()[random.nextInt(AgentAction.values().length)];
 
         int x = snake.getFeaturesSnake().getPositions().get(0).getX();
@@ -56,7 +56,7 @@ public class RandomMoveStrategy extends MoveStrategy {
                 }
             }
         }else {
-            move(snake, items);
+            move(snake);
             return true; // juste pour ne pas supprimer l'element, on repete jusqu'a pas avoir le probleme de lastAction
         }
 

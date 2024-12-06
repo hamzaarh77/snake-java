@@ -31,11 +31,17 @@ public class SnakeGame extends Game{
                 this.strategy = new RandomMoveStrategy(map);
             break;
 
+            case "star":
+                this.strategy = new AStar(map, items);
+            break;
+
             default:
                 this.strategy = new RandomMoveStrategy(map);
             break;
         }
     }
+
+    
 
     @Override
     public void initializeGame() {
@@ -82,7 +88,7 @@ public class SnakeGame extends Game{
             
 
 
-            boolean moved = this.strategy.move(element, this.items);
+            boolean moved = this.strategy.move(element);
             if(!moved){
                 if(!element.getFeaturesSnake().isInvincible())
                     iterator.remove();
@@ -103,23 +109,24 @@ public class SnakeGame extends Game{
     public boolean gameOver(){
         if(turn >= maxturn || snakes.size()==0)
         {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Game Over\n entrer 1 pour finir le jeu \n entrer 2 pour refaire une partie");
-            int choix = scanner.nextInt();
-            switch(choix){
-                case 1 :
-                    System.exit(0);
-                break;
+            // Scanner scanner = new Scanner(System.in);
+            // System.out.println("Game Over\n entrer 1 pour finir le jeu \n entrer 2 pour refaire une partie");
+            // int choix = scanner.nextInt();
+            // switch(choix){
+            //     case 1 :
+            //         System.exit(0);
+            //     break;
                 
-                case 2:
-                    restartGame();
-                break;
+            //     case 2:
+            //         restartGame();
+            //     break;
 
-                default:
-                    System.out.println("choix non reconnue! encore une partie alors");
-                break;
-            }
+            //     default:
+            //         System.out.println("choix non reconnue! encore une partie alors");
+            //     break;
+            // }
             //scanner.close();
+            System.exit(0);
             return true ;
         }
         return false;
